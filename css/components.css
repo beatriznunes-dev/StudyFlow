@@ -333,6 +333,18 @@
   display: none;
 }
 
+select.field__input {
+  cursor: pointer;
+}
+
+/* Dois campos lado a lado (ex.: início e término) */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--space-4);
+}
+
 /* ---------- Seletor de cor ---------- */
 
 .color-picker {

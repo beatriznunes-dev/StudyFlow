@@ -7,7 +7,7 @@ import { createId } from './utils.js';
 const state = {
   subjects: [], // { id, name, color, weeklyGoalHours }
   tasks: [],    // preenchido na etapa de tarefas
-  schedule: [], // preenchido na etapa do cronograma
+  schedule: [], // { id, subjectId, day (0 = segunda … 6 = domingo), start, end } — horários "HH:MM"
 };
 
 const listeners = new Set();
@@ -66,5 +66,23 @@ export function removeSubject(id) {
   state.subjects = state.subjects.filter((subject) => subject.id !== id);
   state.tasks = state.tasks.filter((task) => task.subjectId !== id);
   state.schedule = state.schedule.filter((block) => block.subjectId !== id);
+  commit();
+}
+
+/* ---------- Cronograma ---------- */
+
+export const getSchedule = () => state.schedule;
+
+export const getBlock = (id) => state.schedule.find((block) => block.id === id);
+
+export function addBlock({ subjectId, day, start, end }) {
+  const block = { id: createId('b'), subjectId, day, start, end };
+  state.schedule.push(block);
+  commit();
+  return block;
+}
+
+export function removeBlock(id) {
+  state.schedule = state.schedule.filter((block) => block.id !== id);
   commit();
 }

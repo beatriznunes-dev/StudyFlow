@@ -73,9 +73,17 @@
             <h1 class="section-header__title" id="titulo-cronograma">Cronograma semanal</h1>
             <p class="section-header__subtitle">Organize seus horários de estudo ao longo da semana.</p>
           </div>
+          <button type="button" class="btn btn--primary section-header__action" data-action="new-block" hidden>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Novo bloco
+          </button>
         </header>
 
-        <div class="card empty-state">
+        <ol class="week" id="schedule-week" hidden></ol>
+
+        <div class="card empty-state" id="schedule-empty">
           <span class="empty-state__icon">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
@@ -239,6 +247,77 @@
         <input class="field__input field__input--short" id="subject-goal" name="weeklyGoalHours" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 4" aria-describedby="subject-goal-hint subject-goal-error">
         <p class="field__hint" id="subject-goal-hint">Entre 0,5 e 40 horas, de meia em meia hora.</p>
         <p class="field__error" id="subject-goal-error" data-error-for="weeklyGoalHours" aria-live="polite"></p>
+      </div>
+
+      <footer class="dialog__footer">
+        <button type="button" class="btn btn--secondary" data-close>Cancelar</button>
+        <button type="submit" class="btn btn--primary">Salvar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- Modelos do dia e do bloco do cronograma (clonados pelo js/schedule.js) -->
+  <template id="week-day-template">
+    <li class="card week-day">
+      <h2 class="week-day__name"></h2>
+      <ul class="week-day__blocks"></ul>
+      <p class="week-day__empty">Nenhum bloco</p>
+    </li>
+  </template>
+
+  <template id="schedule-block-template">
+    <li class="schedule-block">
+      <p class="schedule-block__subject"></p>
+      <p class="schedule-block__time">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+        </svg>
+        <span class="schedule-block__time-text"></span>
+      </p>
+      <button type="button" class="icon-btn icon-btn--danger schedule-block__delete" data-action="delete">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        </svg>
+      </button>
+    </li>
+  </template>
+
+  <!-- Formulário de bloco do cronograma -->
+  <dialog class="dialog" id="block-dialog" aria-labelledby="block-dialog-title">
+    <form class="dialog__content" id="block-form" novalidate>
+      <header class="dialog__header">
+        <h2 class="dialog__title" id="block-dialog-title">Novo bloco de estudo</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="field">
+        <label class="field__label" for="block-subject">Matéria</label>
+        <select class="field__input" id="block-subject" name="subjectId" aria-describedby="block-subject-error"></select>
+        <p class="field__error" id="block-subject-error" data-error-for="subjectId" aria-live="polite"></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="block-day">Dia da semana</label>
+        <select class="field__input" id="block-day" name="day" aria-describedby="block-day-error"></select>
+        <p class="field__error" id="block-day-error" data-error-for="day" aria-live="polite"></p>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="block-start">Início</label>
+          <input class="field__input" id="block-start" name="start" type="time" aria-describedby="block-start-error">
+          <p class="field__error" id="block-start-error" data-error-for="start" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="block-end">Término</label>
+          <input class="field__input" id="block-end" name="end" type="time" aria-describedby="block-end-error">
+          <p class="field__error" id="block-end-error" data-error-for="end" aria-live="polite"></p>
+        </div>
       </div>
 
       <footer class="dialog__footer">

@@ -4,6 +4,7 @@
 import { qs, qsAll } from './utils.js';
 import { initState } from './state.js';
 import { initSubjects } from './subjects.js';
+import { initSchedule } from './schedule.js';
 
 const SECTIONS = ['cronograma', 'materias', 'tarefas', 'progresso'];
 const DEFAULT_SECTION = SECTIONS[0];
@@ -36,6 +37,7 @@ function showSection(name) {
 function init() {
   initState();
   initSubjects();
+  initSchedule();
 
   showSection(getSectionFromHash());
   window.addEventListener('hashchange', () => showSection(getSectionFromHash()));

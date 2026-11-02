@@ -5,9 +5,9 @@ Organizador de cronograma de estudos feito com HTML, CSS e JavaScript puros, sem
 ## Funcionalidades
 
 - [x] Estrutura visual e navegação responsiva
-- [ ] Cadastro de matérias
+- [x] Cadastro de matérias
 - [ ] Lista de tarefas
-- [ ] Cronograma semanal
+- [x] Cronograma semanal
 - [ ] Painel de progresso (horas planejadas comparadas com a meta semanal)
 
 ## Como rodar
@@ -23,8 +23,13 @@ index.html          Página única com a navegação e as seções
 css/
   variables.css     Cores, fontes, espaçamentos e sombras
   base.css          Reset, layout e navegação
-  components.css    Cabeçalhos, cards, estados vazios e botões
+  components.css    Cabeçalhos, cards, estados vazios, botões, janelas e campos
+  sections.css      Estilos específicos de cada seção
 js/
   main.js           Ponto de entrada e navegação entre seções
+  state.js          Dados em memória; toda alteração é salva e avisa as telas
+  storage.js        Leitura e gravação no localStorage
+  subjects.js       Cadastro de matérias
+  schedule.js       Cronograma semanal
   utils.js          Funções auxiliares
 ```

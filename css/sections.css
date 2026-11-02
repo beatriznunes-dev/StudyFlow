@@ -79,3 +79,145 @@
   display: flex;
   gap: var(--space-1);
 }
+
+/* ---------- Cronograma ---------- */
+
+/* Celular e tablet: um dia por linha */
+.week {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.week-day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.week-day__name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.week-day__blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.week-day__blocks:empty {
+  display: none;
+}
+
+.week-day__empty {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.schedule-block {
+  position: relative;
+  padding: var(--space-2) var(--space-3);
+  padding-right: 2.5rem; /* espaço para o botão de excluir */
+  border-left: 4px solid var(--subject-color);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--subject-color) 10%, var(--color-surface));
+}
+
+.schedule-block__subject {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.schedule-block__time {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: 2px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-block__time .icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.schedule-block__delete {
+  position: absolute;
+  top: 50%;
+  right: var(--space-1);
+  width: 2rem;
+  height: 2rem;
+  transform: translateY(-50%);
+}
+
+.schedule-block__delete .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Celular: botão de excluir maior, mais fácil de tocar */
+@media (max-width: 768px) {
+  .schedule-block {
+    padding-right: 3rem;
+  }
+
+  .schedule-block__delete {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Computador: os sete dias lado a lado */
+@media (min-width: 1200px) {
+  .week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .week-day {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .week-day__name {
+    padding-inline: var(--space-1);
+  }
+
+  .week-day__blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .week-day__empty {
+    padding-inline: var(--space-1);
+    font-size: var(--fs-xs);
+  }
+
+  /* Na coluna estreita, o botão fica no canto para o horário caber inteiro */
+  .schedule-block {
+    padding-right: var(--space-2);
+  }
+
+  .schedule-block__subject {
+    padding-right: 1.5rem;
+  }
+
+  .schedule-block__delete {
+    top: 2px;
+    right: 2px;
+    width: 1.75rem;
+    height: 1.75rem;
+    transform: none;
+  }
+}
